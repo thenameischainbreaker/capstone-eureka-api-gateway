@@ -1,0 +1,49 @@
+server:
+ port: 8009
+ 
+spring:
+ application:
+  name: API-GATEWAY
+ cloud:
+  gateway:
+   routes:
+    - id: capstone-cart
+      uri: lb://capstone-cart
+      predicates:
+       - Path=/cart/**
+       
+    - id: capstone-stock
+      uri: lb://capstone-stock
+      predicates:
+       - Path=/stock/**    
+    
+    - id: capstone-product
+      uri: lb://capstone-product
+      predicates:
+       - Path=/product/**    
+    
+    - id: capstone-order
+      uri: lb://capstone-order
+      predicates:
+       - Path=/order/**    
+    
+    - id: capstone-discount
+      uri: lb://capstone-discount
+      predicates:
+       - Path=/discount/**
+           
+    - id: capstone-user
+      uri: lb://capstone-user
+      predicates:
+       - Path=/user/**
+       
+       
+eureka:
+ client:
+  register-with-eureka: true
+  fetch-registry: true
+  service-url:
+   defaultZone: ${EUREKA_SERVER_URL:http://localhost:8010/eureka}
+
+ instance:
+  hostname: ${INSTANCE_HOSTNAME:localhost}   
